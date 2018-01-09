@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+    let number = parseInt(Math.random() * 100)
+    function isEven(num){
+        return num % 2 == 0
+    }
+    let section = (<div>
+        <h1>Number is {number}</h1>        
+        {
+                isEven(number) ?
+                <h3>It's even</h3>    
+                :
+                <h3>It's odd</h3>
+        }
+    </div>)
+/*    
+    let section;
+
+    if(number % 2 == 0){
+        section = (
+            <div>
+                <h1>Number is {number}</h1>
+                <h3>It's even</h3>
+            </div>
+        )
+    }
+    else{
+        section = (
+            <div>
+                <h1>Number is {number}</h1>
+                <h3>It's odd</h3>
+            </div>
+        )
+    }
+*/    
+    ReactDOM.render(section,document.getElementById("root"))    
+        </script>
+    </body>
+</html>    
