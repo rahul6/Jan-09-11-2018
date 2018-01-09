@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        <style>
+            .correct{
+                color:green
+            }
+            .wrong{
+                color:red
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        <br/>
+        <div id="status"></div>
+        <script type="text/jsx">
+    function authenticate(){
+        let userName = document.getElementById("username").value
+        let password = document.getElementById("password").value
+        let message = <h1 className="wrong">Invalid credentials</h1>
+        if(userName === "admin" && password === "admin"){
+            message = <h1 className="correct">Logging in...</h1>
+        }
+        ReactDOM.render(message,document.getElementById("status"))
+
+    }
+    let form = (
+        <div>
+            <input type="text" id="username" placeholder="user name"></input><br/>
+            <input type="password" id="password" placeholder="******"></input><br/>
+            <button onClick={authenticate}>Login</button>
+        </div>
+    ) 
+    ReactDOM.render(form,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
