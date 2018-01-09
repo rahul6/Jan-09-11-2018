@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        
+        <div id="message"></div>
+<script type="text/jsx">
+    
+    //let h1 = <h1>Hello React!!!</h1>
+//let textbox = <input type="text"/>
+    function doSomething(){
+        console.log("Button clicked")
+    }
+let date = new Date().toDateString()
+let section = (<div>
+                <h1>{date}</h1>
+                <input type="text"/>
+                <br/>
+                <button onClick={doSomething}>Click</button>
+              </div>)    
+        
+ReactDOM.render(section,document.getElementById("message"))
+</script>
+    </body>
+</html>
+
+
+
+
+
+
+
