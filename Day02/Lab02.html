@@ -35,7 +35,7 @@
             this.playButtonClicked = this.playButtonClicked.bind(this)
         }
         playButtonClicked(){
-            let game = this.state.game
+            let { game } = this.state
             game.play(this.state.guess)
             this.setState({
                 game
