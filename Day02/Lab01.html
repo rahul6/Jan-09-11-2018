@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        <style>
+            table {
+                border:1px solid
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class CitiesComponent extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.cities = [
+                        { country: "France", capital: "Paris" },
+                        { country: "India", capital: "New Delhi" },
+                        { country: "Israel", capital: "Telaviv" },
+                        { country: "Lisbon", capital: "Portugal" }
+                    ]
+                }
+                getCityRows(){
+                    let rows = []
+                    this.cities.forEach(item => {
+                        let row = (<tr>
+                            <td>{item.country}</td>
+                            <td>{item.capital}</td>
+                        </tr>)
+                        rows.push(row)
+                    })
+                    return rows
+                }
+                render(){
+                    return (<table>
+                        <thead>
+                            <tr><th>Country</th><th>Capital</th></tr>
+                        </thead>
+                        <tbody>
+                            {this.getCityRows()}
+                        </tbody>    
+                    </table>)
+                }
+            }
+
+            ReactDOM.render(<CitiesComponent/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
+
+
+
+
+
