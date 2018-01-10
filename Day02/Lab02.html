@@ -47,15 +47,16 @@
             })
         }
         render(){
+            let { message, attempts } = this.state.game
             return (<div>
                 <h1>Welcome to the guessing game. Enter a number between 1 and 100</h1>
                 Enter your guess<input type="text" onBlur={this.guessTextboxBlur}></input><br/>
                 <button onClick={this.playButtonClicked}>Play</button>    
                 <hr/>
-                <h2>{this.state.game.message}</h2>
+                <h2>{message}</h2>
                 {
-                    this.state.game.attempts > 0 ?
-                    <h3>Attempts: {this.state.game.attempts}</h3>
+                    attempts > 0 ?
+                    <h3>Attempts: {attempts}</h3>
                     :
                     <span/>
                 }
