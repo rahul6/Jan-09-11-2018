@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+            class Sample extends React.Component{
+                constructor(props){
+                    super(props)
+                    this.state = { message: "" }
+                    this.buttonClicked = this.buttonClicked.bind(this)
+                }
+                buttonClicked(){
+                    this.setState({
+                        message: new Date().toLocaleTimeString()
+                    })
+                }
+                componentWillUpdate(){
+                    console.log("componentWillUpdate called")
+                }
+                shouldComponentUpdate(arg1,newState){
+                    console.log("shouldComponentUpdate called")
+                    console.log(newState)
+                    return true
+                }
+                componentWillMount(){
+                    //CALLED ONLY THE FIRST TIME BEFORE RENDER
+                    console.log("componentWillMount called")
+                }
+                componentDidUpdate(){
+                    //NOT CALLED THE FIRST TIME
+                    //EVERY TIME AFTER RENDER IS CALLED DURING UPDATE
+                    console.log("componentDidUpdate called")
+                }
+                //<body onload="init()">
+                //$().ready(...)
+                componentDidMount(){
+                    //CALLED ONLY THE FIRST TIME AFTER RENDER
+                    //FIRE YOUR AJAX CALLS FROM HERE
+                    console.log("componentDidMount called")
+                }
+                render(){
+                    console.log("render called")
+                    return (<div>
+                        <button onClick={this.buttonClicked}>Click</button>
+                        <h1>{this.state.message}</h1>    
+                    </div>)
+                }
+            }
+ReactDOM.render(<Sample/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
