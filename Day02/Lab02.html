@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+    class Game{
+        constructor(){
+            this.target = parseInt(Math.random()*100)
+            this.attempts = 0
+            this.message = ""
+        }
+        play(guess){
+            this.attempts += 1
+            if(guess > this.target)
+                this.message = "Aim Lower"
+            else if(guess < this.target)
+                this.message = "Aim Higher"
+            else{
+                this.message = "You've got it!!!"
+            }
+        }
+    }
+    class GameComponent extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                game: new Game(),
+                guess: ""
+            }
+            this.guessTextboxBlur = this.guessTextboxBlur.bind(this)
+            this.playButtonClicked = this.playButtonClicked.bind(this)
+        }
+        playButtonClicked(){
+            let game = this.state.game
+            game.play(this.state.guess)
+            this.setState({
+                game
+            })
+        }
+        guessTextboxBlur(e){
+            this.setState({
+                guess: e.target.value.trim()
+            })
+        }
+        render(){
+            return (<div>
+                <h1>Welcome to the guessing game. Enter a number between 1 and 100</h1>
+                Enter your guess<input type="text" onBlur={this.guessTextboxBlur}></input><br/>
+                <button onClick={this.playButtonClicked}>Play</button>    
+                <hr/>
+                <h2>{this.state.game.message}</h2>
+                {
+                    this.state.game.attempts > 0 ?
+                    <h3>Attempts: {this.state.game.attempts}</h3>
+                    :
+                    <span/>
+                }
+                
+            </div>)
+        }
+    }
+    ReactDOM.render(<GameComponent/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
