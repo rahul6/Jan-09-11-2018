@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+class Lab03 extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            countries: [],
+            countrySelected: ""
+        }
+        this.countryChanged = this.countryChanged.bind(this)
+    }
+    countryChanged(e){
+        let countrySelected = e.target.value.trim()
+        this.setState({countrySelected})
+    }
+    getCityList(){
+        let options = []
+        let {countrySelected,countries} = this.state
+        options.push(<option>--SELECT--</option>)
+        let country = countries.find(it => it.name == countrySelected)
+        if(country){
+            country.cities.forEach(city => {
+                options.push(<option>{city}</option>)
+            })    
+        }
+        
+        return options
+    }
+    getCountryList(){
+        let options = []
+        let {countries} = this.state
+        options.push(<option>--SELECT--</option>)
+        countries.forEach(country => {
+            options.push(<option>{country.name}</option>)
+        })
+        return options
+    }
+    render(){
+        return (<div>
+            <label>Country</label>    
+            <select onChange={this.countryChanged}>{this.getCountryList()}</select><br/>
+            <label>City</label>    
+            <select>{this.getCityList()}</select> 
+        </div>)
+    }
+    storeInLocalStorage(countries){
+        localStorage.setItem("countries",JSON.stringify(countries))
+    }
+    componentDidMount(){
+        let countries = []
+        if(localStorage.getItem("countries") == undefined){
+            countries.push({name:"India",cities:["Pune","Chennai","Kochi"]})
+            countries.push({name:"US",cities:["NY","NJ","Houston"]})
+            countries.push({name:"UK",cities:["London","Bristol","Essex"]})
+            this.storeInLocalStorage(countries)    
+        }
+        else{
+            countries = JSON.parse(localStorage.getItem("countries"))
+        }
+        this.setState({countries})
+    }
+    
+}
+ReactDOM.render(<Lab03/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
