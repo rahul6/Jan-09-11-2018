@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+class Header extends React.Component{
+    render(){
+        return <h1>Welcome</h1>
+    }
+}
+class Footer extends React.Component{
+    render(){
+        return <h5>Copyrights, 2018</h5>
+    }
+}
+class MyComponent extends React.Component{
+    buttonClicked(){
+        let name = document.getElementById("name").value
+        let message = `Hello ${name}`
+        console.log(message)
+    }
+    render(){
+        return (
+            <div>
+                <Header/>
+                <hr/>
+                <h4>This is body part of the component</h4>
+                <input type="text" id="name"></input>
+                <button onClick={this.buttonClicked}>Click</button>
+                <br/><br/>
+                <hr/>
+                <Footer/>
+            </div>
+        )
+    }
+}        
+
+ReactDOM.render(<MyComponent/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
