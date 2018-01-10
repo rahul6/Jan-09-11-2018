@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+    class StateExample extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                currentDate: new Date().toDateString(),
+                currentTemperature: "",
+                currentTime: new Date().toLocaleTimeString()     
+            }
+            this.showTimeButtonClicked =        this.showTimeButtonClicked.bind(this)
+        }
+        
+        showTimeButtonClicked(){
+            //setState() changes the data and calls render()
+            //called asynchronously
+            this.setState({
+                currentTime: new Date().toLocaleTimeString()
+            })
+            //Never Call the state after setState
+            console.log(this.state.currentTime)
+            //doesn't call render
+            //this.state.currentTime = new Date().toLocaleTimeString() 
+        }
+        //Creates a new Virtual DOM
+        render(){
+            //SUICIDAL
+            //this.setState({})
+            
+            return (<div>
+                <button onClick={this.showTimeButtonClicked}>Show Time</button>
+                <h1>{this.state.currentTime}</h1>
+                <h1>{this.state.currentDate}</h1>   
+            </div>)
+        }
+    }
+        ReactDOM.render(<StateExample/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
