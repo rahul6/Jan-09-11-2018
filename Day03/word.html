@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+        class WordForm extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    word: ""
+                }
+                this.checkButtonClicked = this.checkButtonClicked.bind(this)
+                this.wordTextboxBlur = this.wordTextboxBlur.bind(this)
+            }
+            wordTextboxBlur(e){
+                this.setState({
+                    word: e.target.value.trim()
+                })
+            }
+            checkButtonClicked(){
+                let {word} = this.state
+                let reversedWord = word.split("").reverse().join("")
+                let message = `${word} is not a palindrome`
+                if(word === reversedWord)
+                    message = `${word} is a palindrome`
+                this.props.outputHandler(message)        
+            }
+            render(){
+                return(<div>
+                    <input type="text" onBlur={this.wordTextboxBlur} placeholder="word"/><br/>
+                    <button onClick={this.checkButtonClicked}>Check</button>    
+                </div>)
+            }
+        }
+        class Result extends React.Component{
+            constructor(props){
+                super(props)
+            }
+            render(){
+                return <h1>{this.props.wordresult}</h1>
+            }
+        }
+        class App extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    message: ""
+                }
+                this.displayPalindromeResult = this.displayPalindromeResult.bind(this)
+            }
+            displayPalindromeResult(message){
+                this.setState({message})
+            }
+            render(){
+                return(<div>
+                    <WordForm outputHandler={this.displayPalindromeResult}/>
+                    <hr/>
+                    <Result wordresult={this.state.message}/>    
+                </div>)
+            }
+        }
+        ReactDOM.render(<App/>,document.getElementById("root"))
+        </script>        
+    </body>
+</html>    
