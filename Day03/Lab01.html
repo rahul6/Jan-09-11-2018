@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+class PersonForm extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    addButtonClicked(){
+        let name = this.nameTextbox.value.trim()
+        let country = this.countryDL.value.trim()
+        this.props.addPersonHandler(name,country)
+        
+    }
+    render(){
+        return (<div>
+            <input type="text" placeholder="name" ref={ip =>this.nameTextbox = ip}/><br/>
+            <select ref={ip=>this.countryDL = ip}>
+                <option>--SELECT--</option>
+                <option>France</option>
+                <option>Italy</option>
+                <option>India</option>
+            </select><br/>
+            <button onClick={this.addButtonClicked.bind(this)}>Add Person</button>
+            <h2>{this.props.message}</h2>    
+        </div>)
+    }
+}
+class PersonDisplay extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    markPersonForRemoval(person){
+        this.props.changeRemovalStatusHandler(person)
+    }
+    getPersons(){
+        let {persons} = this.props
+        let rows = []
+        persons.forEach(person => {
+            let key = person.name.replace(' ','') + "_" + person.country.replace(' ','')
+            let row = (<tr key={key}>
+                <td>{person.name}</td>
+                <td>{person.country}</td>
+                <td><input type="checkbox" onClick={this.markPersonForRemoval.bind(this,person)}/></td>    
+            </tr>)
+            rows.push(row)
+        })
+        return rows
+    }
+    render(){
+        return (<div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Country</td>
+                        <td>Select</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.getPersons()}
+                </tbody>
+            </table>    
+        </div>)
+    }
+}
+class App extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            persons: [],
+            addedMessage: ""
+        }
+        this.addPerson = this.addPerson.bind(this)
+        this.removePersons = this.removePersons.bind(this)
+        this.changeRemovalStatus = this.changeRemovalStatus.bind(this)
+    }
+    changeRemovalStatus(person){
+        let {persons} = this.state
+        let personInList = persons.find(p => p.name === person.name && p.country === person.country)
+        personInList.markedForRemoval = !personInList.markedForRemoval
+        this.setState({persons})
+    }
+    addPerson(name,country){
+        let found = true
+        let {persons} = this.state
+        let person = persons.find(it => it.name === name && it.country === country)
+        if(!person){
+            persons.push({ name,country,markedForRemoval: false })
+            found = false
+        }
+        let addedMessage = found? "Person already found":"Person added successfully"
+        this.setState({persons,addedMessage})
+    }
+    removePersons(){
+        let {persons} = this.state
+        persons = persons.filter(p => !p.markedForRemoval)
+        this.setState({persons})
+    }
+    render(){
+        return (<div>
+            <PersonForm addPersonHandler={this.addPerson} message={this.state.addedMessage}/>
+            <hr/>
+            {
+                this.state.persons.length > 0 ?
+                    <PersonDisplay changeRemovalStatusHandler={this.changeRemovalStatus}  persons={this.state.persons}/>
+                :
+                    <span/>
+            }
+            {
+                this.state.persons.length > 0 ?  
+                <button onClick={this.removePersons}>Remove</button>
+                :
+                <span/>
+            }
+        </div>)
+    }
+}
+
+
+            ReactDOM.render(<App/>,document.getElementById("root"))
+        </script>
+    </body>
+</html>    
