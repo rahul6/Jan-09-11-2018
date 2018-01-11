@@ -1,0 +1,14 @@
+1) sudo npm install -g create-react-app
+2) create-react-app <AppName>
+3) Navigate to your <AppName> folder
+4) Run sudo npm start
+5) Open the contents of <AppName> folder
+6) The starting points are
+	a) src/App.js
+	b) public/index.html
+7) Create new components in individual js files in src folder
+8) Import the components and use them in <App/> Component
+9) Run sudo npm run build
+10) You get a build folder with main.xxxxx.js, main.xxxxx.css and index.html file
+11) Deploy them to server of your choice
+	
