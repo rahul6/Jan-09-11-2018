@@ -8,19 +8,26 @@
         <div id="root"></div>
         <script type="text/jsx">
         let printDate = () => console.log(new Date()) 
-
+        let printRandomNumber = () => console.log(Math.random())
+        
         class Display extends React.Component{
             constructor(props){
                 super(props)
+                this.buttonClicked = this.buttonClicked.bind(this)
+            }
+            buttonClicked(){
+                this.props.handler()
+                this.props.randomhandler()
             }
             render(){
                 return (<div>
+                    <button onClick={this.buttonClicked}>Print Date and Random</button>    
                     <button onClick={this.props.handler}>Click</button>
                 </div>)
             }
         }    
 ReactDOM.render(
-                <Display handler={printDate}/>,
+                <Display handler={printDate} randomhandler={printRandomNumber}/>,
                 document.getElementById("root"))
         </script>
     </body>
