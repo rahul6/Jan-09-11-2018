@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+class Sample extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {message:""}
+       // this.buttonClicked = this.buttonClicked.bind(this)
+    }
+    buttonClicked(param1){
+        console.log(this)
+        this.clickBtn.style.display = "none"
+        let city = this.cityTextbox.value
+        this.cityTextbox.disabled = true
+        let message = `You live in ${city}`
+        this.setState({ message  })
+    }
+    nameTextboxBlur(e){
+        let name = e.target.value.trim()
+        //DO WHATEVER YOU WANT WITH names
+    }
+    render(){
+        return (<div>
+            <input type="text" ref={ip => this.cityTextbox = ip} placeholder="city"></input>    
+            <input type="text" onBlur={this.nameTextboxBlur.bind(this)}></input>    
+            <button ref={btn => this.clickBtn = btn} onClick={this.buttonClicked.bind(this,"sam")}>Click</button>
+            <h1>{this.state.message}</h1>    
+        </div>)
+    }
+}
+
+
+ReactDOM.render(<Sample/>,document.getElementById("root"))        
+        </script>
+    </body>
+</html>    
+    
