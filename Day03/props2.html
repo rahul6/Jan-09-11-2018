@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script src="https://fb.me/react-0.14.3.min.js"></script>
+		<script src="https://fb.me/react-dom-0.14.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/jsx">
+        let printDate = () => console.log(new Date()) 
+
+        class Display extends React.Component{
+            constructor(props){
+                super(props)
+            }
+            render(){
+                return (<div>
+                    <button onClick={this.props.handler}>Click</button>
+                </div>)
+            }
+        }    
+ReactDOM.render(
+                <Display handler={printDate}/>,
+                document.getElementById("root"))
+        </script>
+    </body>
+</html>    
+
+
+
+
+
